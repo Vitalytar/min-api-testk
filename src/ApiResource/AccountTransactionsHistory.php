@@ -11,10 +11,10 @@ use App\Controller\AccountTransaction;
 
 #[ApiResource(
     operations: [
-        new Get(uriTemplate: '/account-transaction/{id}'),
+        new Get(uriTemplate: '/account-transaction/{accountId}'),
         new GetCollection(uriTemplate: '/account-transactions'),
-    ],provider: AccountTransaction::class)]
+    ],
+    provider: AccountTransaction::class
+)]
 class AccountTransactionsHistory
-{
-
-}
+{}

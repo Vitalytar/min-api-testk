@@ -4,23 +4,45 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use ApiPlatform\Metadata\Operation;
+use Symfony\Component\HttpKernel\Attribute\AsController;
+use App\Repository\ClientRepository;
+use ApiPlatform\State\ProviderInterface;
 
-class AccountsRetrieving extends AbstractController
+#[AsController]
+class AccountsRetrieving implements ProviderInterface
 {
-    #[Route('/get-client-accounts', name: 'client-accounts')]
-    public function fetchAccountsByClientId(): Response
+    public function __construct(protected ClientRepository $clientRepository) {}
+
+    /**
+     * @param Operation $operation
+     * @param array     $uriVariables
+     * @param array     $context
+     *
+     * @return object|array|null
+     */
+    public function provide(Operation $operation, array $uriVariables = [], array $context = []): object|array|null
     {
-        $response = new Response();
+        $clientId = $uriVariables['clientId'];
+        $clientAccounts = $this->clientRepository->findOneBy(['client_id' => $clientId]);
 
-        $response->setContent('WTF TEST');
-        $response->setStatusCode(Response::HTTP_OK);
-        $response->headers->set('Content-Type', 'text/plain');
+        if (!$clientAccounts) {
+            return ['ERROR! Client accounts with provided ID were not found!'];
+        }
 
-        $response->send();
+        $resultedData = [];
+        $clientName = $clientAccounts->getClientName();
 
-        return $response;
+        foreach ($clientAccounts->getAccounts() as $account) {
+            $resultedData[] = [
+                'client_name' => $clientName,
+                'account_id' => $account->getId(),
+                'account_name' => $account->getAccountName(),
+                'funds' => $account->getFunds(),
+                'account_currency' => $account->getAccountCurrency()
+            ];
+        }
+
+        return $resultedData;
     }
 }
