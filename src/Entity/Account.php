@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Metadata\ApiResource;
 use App\Repository\AccountRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -16,9 +15,6 @@ class Account
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
-    private ?int $account_id = null;
-
     #[ORM\Column(length: 255)]
     private ?string $account_name = null;
 
@@ -30,35 +26,19 @@ class Account
 
     #[ORM\ManyToOne(inversedBy: 'accounts')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Client $client_id = null;
+    private ?Client $client = null;
 
-    #[ORM\OneToMany(mappedBy: 'sender_account_id', targetEntity: Transaction::class)]
+    #[ORM\OneToMany(mappedBy: 'sender_account', targetEntity: Transaction::class)]
     private Collection $transactions;
-
-    #[ORM\OneToMany(mappedBy: 'receiver_account_id', targetEntity: Transaction::class)]
-    private Collection $transactions_receiver;
 
     public function __construct()
     {
         $this->transactions = new ArrayCollection();
-        $this->transactions_receiver = new ArrayCollection();
     }
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getAccountId(): ?int
-    {
-        return $this->account_id;
-    }
-
-    public function setAccountId(int $account_id): static
-    {
-        $this->account_id = $account_id;
-
-        return $this;
     }
 
     public function getAccountName(): ?string
@@ -97,14 +77,14 @@ class Account
         return $this;
     }
 
-    public function getClientId(): ?Client
+    public function getClient(): ?Client
     {
-        return $this->client_id;
+        return $this->client;
     }
 
-    public function setClientId(?Client $client_id): static
+    public function setClient(?Client $client): static
     {
-        $this->client_id = $client_id;
+        $this->client = $client;
 
         return $this;
     }
@@ -121,7 +101,7 @@ class Account
     {
         if (!$this->transactions->contains($transaction)) {
             $this->transactions->add($transaction);
-            $transaction->setSenderAccountId($this);
+            $transaction->setSenderAccount($this);
         }
 
         return $this;
@@ -131,38 +111,8 @@ class Account
     {
         if ($this->transactions->removeElement($transaction)) {
             // set the owning side to null (unless already changed)
-            if ($transaction->getSenderAccountId() === $this) {
-                $transaction->setSenderAccountId(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Transaction>
-     */
-    public function getTransactionsReceiver(): Collection
-    {
-        return $this->transactions_receiver;
-    }
-
-    public function addTransactionsReceiver(Transaction $transactionsReceiver): static
-    {
-        if (!$this->transactions_receiver->contains($transactionsReceiver)) {
-            $this->transactions_receiver->add($transactionsReceiver);
-            $transactionsReceiver->setReceiverAccountId($this);
-        }
-
-        return $this;
-    }
-
-    public function removeTransactionsReceiver(Transaction $transactionsReceiver): static
-    {
-        if ($this->transactions_receiver->removeElement($transactionsReceiver)) {
-            // set the owning side to null (unless already changed)
-            if ($transactionsReceiver->getReceiverAccountId() === $this) {
-                $transactionsReceiver->setReceiverAccountId(null);
+            if ($transaction->getSenderAccount() === $this) {
+                $transaction->setSenderAccount(null);
             }
         }
 

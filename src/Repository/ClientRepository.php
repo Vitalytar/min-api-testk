@@ -20,11 +20,11 @@ class ClientRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Client::class);
     }
-//
+
 //    /**
 //     * @return Client[] Returns an array of Client objects
 //     */
-//    public function findByClientId($value): array
+//    public function findByExampleField($value): array
 //    {
 //        return $this->createQueryBuilder('c')
 //            ->andWhere('c.exampleField = :val')

@@ -16,26 +16,33 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class TransactionRepository extends ServiceEntityRepository
 {
-    /**
-     * @param ManagerRegistry $registry
-     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Transaction::class);
     }
-//
+
 //    /**
 //     * @return Transaction[] Returns an array of Transaction objects
 //     */
-//    public function findTransactionsById($value): array
+//    public function findByExampleField($value): array
 //    {
-//        return $this->createQueryBuilder('trans')
-//            ->andWhere('trans.sender_account_id_id = :val')
-//            ->orWhere('trans.receiver_account_id_id = :val')
+//        return $this->createQueryBuilder('t')
+//            ->andWhere('t.exampleField = :val')
 //            ->setParameter('val', $value)
-//            ->orderBy('trans.id', 'ASC')
+//            ->orderBy('t.id', 'ASC')
 //            ->setMaxResults(10)
 //            ->getQuery()
-//            ->getResult();
+//            ->getResult()
+//        ;
+//    }
+
+//    public function findOneBySomeField($value): ?Transaction
+//    {
+//        return $this->createQueryBuilder('t')
+//            ->andWhere('t.exampleField = :val')
+//            ->setParameter('val', $value)
+//            ->getQuery()
+//            ->getOneOrNullResult()
+//        ;
 //    }
 }

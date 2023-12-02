@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Metadata\ApiResource;
 use App\Repository\TransactionRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -14,84 +13,69 @@ class Transaction
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
-    private ?int $transaction_id = null;
+    #[ORM\ManyToOne(inversedBy: 'transactions')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Account $sender_account = null;
 
     #[ORM\ManyToOne(inversedBy: 'transactions')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Account $sender_account_id = null;
+    private ?Account $receiver_account = null;
 
-    #[ORM\ManyToOne(inversedBy: 'transactions_receiver')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Account $receiver_account_id = null;
+    #[ORM\Column]
+    private ?float $transaction_amount = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $sent_amount = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $received_amount = null;
+    #[ORM\Column(length: 3)]
+    private ?string $currency = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getTransactionId(): ?int
+    public function getSenderAccount(): ?Account
     {
-        return $this->transaction_id;
+        return $this->sender_account;
     }
 
-    public function setTransactionId(int $transaction_id): static
+    public function setSenderAccount(?Account $sender_account): static
     {
-        $this->transaction_id = $transaction_id;
+        $this->sender_account = $sender_account;
 
         return $this;
     }
 
-    public function getSenderAccountId(): ?Account
+    public function getReceiverAccount(): ?Account
     {
-        return $this->sender_account_id;
+        return $this->receiver_account;
     }
 
-    public function setSenderAccountId(?Account $sender_account_id): static
+    public function setReceiverAccount(?Account $receiver_account): static
     {
-        $this->sender_account_id = $sender_account_id;
+        $this->receiver_account = $receiver_account;
 
         return $this;
     }
 
-    public function getReceiverAccountId(): ?Account
+    public function getTransactionAmount(): ?float
     {
-        return $this->receiver_account_id;
+        return $this->transaction_amount;
     }
 
-    public function setReceiverAccountId(?Account $receiver_account_id): static
+    public function setTransactionAmount(float $transaction_amount): static
     {
-        $this->receiver_account_id = $receiver_account_id;
+        $this->transaction_amount = $transaction_amount;
 
         return $this;
     }
 
-    public function getSentAmount(): ?string
+    public function getCurrency(): ?string
     {
-        return $this->sent_amount;
+        return $this->currency;
     }
 
-    public function setSentAmount(string $sent_amount): static
+    public function setCurrency(string $currency): static
     {
-        $this->sent_amount = $sent_amount;
-
-        return $this;
-    }
-
-    public function getReceivedAmount(): ?string
-    {
-        return $this->received_amount;
-    }
-
-    public function setReceivedAmount(string $received_amount): static
-    {
-        $this->received_amount = $received_amount;
+        $this->currency = $currency;
 
         return $this;
     }
