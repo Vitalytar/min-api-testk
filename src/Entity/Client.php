@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata\Get;
 
 #[ORM\Entity(repositoryClass: ClientRepository::class)]
-#[ApiResource(operations: [new Get()])]
+#[ApiResource(operations: [new Get(uriTemplate: '/client/{id}')])]
 class Client
 {
     #[ORM\Id]

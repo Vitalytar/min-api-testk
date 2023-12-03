@@ -10,7 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
 #[ORM\Entity(repositoryClass: AccountRepository::class)]
-#[ApiResource(operations: [new Get()])]
+#[ApiResource(operations: [new Get(uriTemplate: '/account/{id}')])]
 class Account
 {
     #[ORM\Id]
