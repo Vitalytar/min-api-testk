@@ -71,12 +71,16 @@ class MakeTransactionController extends AbstractController
             return $this->prepareResponse(true, 'Receiver account currency is different', Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
+        $senderData = ['error' => false, 'amount' => $senderAmount];
+
         if ($senderAccount->getAccountCurrency() !== $currency) {
-            $senderAmount = $this->convertCurrency($senderAccount->getAccountCurrency(), $currency, $amount);
+            $senderData = $this->convertCurrency($senderAccount->getAccountCurrency(), $currency, $amount);
         }
 
-        if (!$senderAmount['error']) {
-            if ($senderAmount['amount'] > $senderAccount->getFunds()) {
+        if (!$senderData['error']) {
+            $senderAmount = $senderData['amount'];
+
+            if ($senderAmount > $senderAccount->getFunds()) {
                 return $this->prepareResponse(true, 'Not enough funds on sender account', Response::HTTP_INTERNAL_SERVER_ERROR);
             }
 
