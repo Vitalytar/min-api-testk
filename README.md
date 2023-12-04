@@ -5,13 +5,12 @@
 4. Adjust value for `DATABASE_URL` in the `.env` file accordingly to your local DB (hope you have it not only in Docker ^_^)
 5. Install DB schema from CLI - `bin/console doctrine:database:create`. Resulted name is defined also in the DATABASE_URL environment variable
 6. Run `bin/console doctrine:migrations:migrate` to install all necessary schemas
-7. Run all migrations `bin/console doctrine:migrations:migrate`
-8. Run `bin/console doctrine:fixtures:load` to load some sample data to the client and account DB tables
-9. Start local server problems using `symfony server:start`
-10. Check `Current endpoints` section, testing may be done via Insomnia/Postman or for `api/client`, `api/account` can be used `<base_url>/api`
-11. Duplicate `.env` file and make the same `.env.test.local` to avoid data overriding in the base table
-12. Run implemented test `bin/phpunit tests/Controller`
-13. Via Postman/Insomnia you can check next section and test endpoints also manually
+7. Run `bin/console doctrine:fixtures:load` to load some sample data to the client and account DB tables
+8. Start local server problems using `symfony server:start`
+9. Check `Current endpoints` section, testing may be done via Insomnia/Postman or for `api/client`, `api/account` can be used `<base_url>/api`
+10. Duplicate `.env` file and make the same `.env.test.local` to avoid data overriding in the base table
+11. Run implemented test `bin/phpunit tests/Controller`
+12. Via Postman/Insomnia you can check next section and test endpoints also manually
 <br/>
 
 # Current endpoints:
