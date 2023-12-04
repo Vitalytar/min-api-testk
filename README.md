@@ -9,14 +9,14 @@
 8. Start local server problems using `symfony server:start`
 9. Check `Current endpoints` section, testing may be done via Insomnia/Postman or for `api/client`, `api/account` can be used `<base_url>/api`
 10. Duplicate `.env` file and make the same `.env.test.local` to avoid data overriding in the base table
-11. Run implemented test `bin/phpunit tests/Controller`
+11. Prepare test environment and run implemented test - `bin/console doctrine:database:create --env=test` / `bin/console doctrine:migration:migrate --env=test` /  `bin/phpunit tests/Controller`
 12. Via Postman/Insomnia you can check next section and test endpoints also manually
 <br/>
 
 # Current endpoints:
-1. `<base_url>/api/client/{id}` - will return client and all his accounts using client ID
-2. `<base_url>/api/account/{id}` - will return account by account ID and all related transactions
-3. `<base_url>/make/transaction` - make transaction between two accounts. Accepts JSON only, example structure
+1. GET `<base_url>/api/client/{id}` - will return client and all his accounts using client ID
+2. GET `<base_url>/api/account/{id}` - will return account by account ID and all related transactions
+3. POST `<base_url>/make/transaction` - make transaction between two accounts. Accepts JSON only, example structure
 ```
 {
    "senderAccountId": 1,

@@ -1,0 +1,72 @@
+{
+	"info": {
+		"_postman_id": "154e1724-0238-4686-88f1-570f11f2b793",
+		"name": "Mintos API Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20383519"
+	},
+	"item": [
+		{
+			"name": "Get accounts and transactions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/account/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"account",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get client and accounts",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/client/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"client",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Make transaction",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/make/transaction",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"make",
+						"transaction"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
