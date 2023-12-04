@@ -82,7 +82,7 @@ class MakeTransactionControllerTest extends WebTestCase
         $this->assertEquals(['error' => true, 'message' => 'One of the accounts was not found!'], json_decode($client->getResponse()->getContent(), true));
     }
 
-    public function testSuccessfulTransaction()
+    public function testTransactionSuccess()
     {
         $client = static::createClient();
 
@@ -107,6 +107,15 @@ class MakeTransactionControllerTest extends WebTestCase
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertJson($client->getResponse()->getContent());
         $this->assertEquals(['error' => false, 'message' => 'Transaction successful'], json_decode($client->getResponse()->getContent(), true));
+    }
+
+    public function testTransactionCustomErrorResponses()
+    {
+        $client = static::createClient();
+
+        $repository = $client->getContainer()->get('doctrine')->getRepository(Account::class);
+        $senderAccount = $repository->findOneBy(['account_name' => 'BigCompanyEUR']);
+        $receiverAccount = $repository->findOneBy(['account_name' => 'MediumCompanyEUR']);
 
         $client->request(
             'POST',
