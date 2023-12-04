@@ -10,7 +10,7 @@
 9. Check `Current endpoints` section, testing may be done via Insomnia/Postman or for `api/client`, `api/account` can be used `<base_url>/api`
 10. Duplicate `.env` file and make the same `.env.test.local` to avoid data overriding in the base table
 11. Prepare test environment and run implemented test - `bin/console doctrine:database:create --env=test` / `bin/console doctrine:migration:migrate --env=test` /  `bin/phpunit tests/Controller`
-12. Via Postman/Insomnia you can check next section and test endpoints also manually
+12. Via Postman/Insomnia you can check next section and test endpoints also manually (you can find already prepared collection in the pub folder - [Test_API_Collection.postman_collection.json](public%2FTest_API_Collection.postman_collection.json) file)
 <br/>
 
 # Current endpoints:
