@@ -19,7 +19,7 @@ final class ClientEntityTest extends ApiTestCase
      */
     public function testClientDoesNotExist()
     {
-        ClientEntityTest::createClient()->request(method: 'GET', url: 'api/client/1e');
+        static::createClient()->request(method: 'GET', url: 'api/client/1e');
         $this->assertResponseStatusCodeSame(404);
         $this->assertJsonContains([
             'detail' => 'Not Found',
@@ -32,7 +32,7 @@ final class ClientEntityTest extends ApiTestCase
      */
     public function testAccountExist()
     {
-        $client = AccountEntityTest::createClient();
+        $client = static::createClient();
 
         $repository = $client->getContainer()->get('doctrine')->getRepository(Client::class);
         $senderAccount = $repository->findOneBy(['client_name' => 'BigCompany']);

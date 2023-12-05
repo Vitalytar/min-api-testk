@@ -17,13 +17,13 @@ final class AccountEntityTest extends ApiTestCase
 {
     public function setUp(): void
     {
-        $kernel = AccountEntityTest::createKernel();
+        $kernel = static::createKernel();
         $kernel->boot();
 
         $application = new Application($kernel);
         $application->setAutoExit(false);
 
-        // Load fixtures
+        // Load fixtures / Bad practice, to load fixtures in every test, need some package to run it once before all tests
         $input = new StringInput('doctrine:fixtures:load --no-interaction');
         $application->run($input);
     }
@@ -34,7 +34,7 @@ final class AccountEntityTest extends ApiTestCase
      */
     public function testAccountDoesNotExist()
     {
-        AccountEntityTest::createClient()->request(method: 'GET', url: 'api/account/1e');
+        static::createClient()->request(method: 'GET', url: 'api/account/1e');
         $this->assertResponseStatusCodeSame(404);
         $this->assertJsonContains([
             'detail' => 'Not Found',
@@ -47,7 +47,7 @@ final class AccountEntityTest extends ApiTestCase
      */
     public function testAccountExist()
     {
-        $client = AccountEntityTest::createClient();
+        $client = static::createClient();
 
         $repository = $client->getContainer()->get('doctrine')->getRepository(Account::class);
         $senderAccount = $repository->findOneBy(['account_name' => 'BigCompanyEUR']);
