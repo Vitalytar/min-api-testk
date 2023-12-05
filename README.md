@@ -17,7 +17,6 @@
 1. GET `<base_url>/api/client/{id}` - will return client and all his accounts using client ID
 2. GET `<base_url>/api/account/{id}` - will return account by account ID and all related transactions
 3. POST `<base_url>/make/transaction` - make transaction between two accounts. Accepts JSON only, example structure
-4. GET `<base_url>/api/account-transactions/{id}?limit=<int>&offset=<int>` - returns transactions for the account if it's set as sender or receiver in any transaction. Limit and offset GET parameters are optional
 ```
 {
    "senderAccountId": 1,
@@ -26,6 +25,7 @@
    "currency": "EUR"
 }
 ```
+4. GET `<base_url>/api/account-transactions/{id}?limit=<int>&offset=<int>` - returns transactions for the account if it's set as sender or receiver in any transaction. Limit and offset GET parameters are optional
 
 Currency rates converter - [Fixer.io](https://fixer.io/)
 
