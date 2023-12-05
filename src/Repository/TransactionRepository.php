@@ -20,4 +20,29 @@ class TransactionRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Transaction::class);
     }
+
+    /**
+     * @return Transaction[] Returns an array of Transaction objects
+     */
+    public function findTransactionsByAccountId($value, $filters = []): array
+    {
+        $query = $this->createQueryBuilder('t')
+            ->andWhere('t.sender_account = :val')
+            ->orWhere('t.receiver_account = :val')
+            ->setParameter('val', $value)
+            ->orderBy('t.id', 'DESC');
+
+        if ($filters) {
+            if (!empty($filters['limit'])) {
+                $query->setMaxResults($filters['limit']);
+            }
+
+            if (!empty($filters['offset'])) {
+                $query->setFirstResult($filters['offset']);
+            }
+        }
+
+        return $query->getQuery()
+            ->getResult();
+    }
 }

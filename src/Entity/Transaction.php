@@ -2,10 +2,17 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\Get;
+use App\State\TransactionProvider;
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\TransactionRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TransactionRepository::class)]
+#[ApiResource(
+    operations: [new Get(uriTemplate: '/account-transactions/{id}')],
+    provider: TransactionProvider::class
+)]
 class Transaction
 {
     #[ORM\Id]
