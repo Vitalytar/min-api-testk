@@ -28,6 +28,8 @@
 
 Currency rates converter - [Fixer.io](https://fixer.io/)
 
+Why full Symfony is used? From the very beginning thought to make some FE also, but then decided that there's no necessity to do so
+
 About Docker - didn't see any benefits to use it in this test task + the main reason why I try to avoid it - slow local environment.
 The only OS where it's working fine - Linux, on other OS it's anyway it's using virtualization and makes local slow.<br/>
 PS. Not sure about Docker for Symfony, but for Magento it's painful thingy x_x<br/>

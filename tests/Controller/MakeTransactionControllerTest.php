@@ -12,11 +12,11 @@ use App\Entity\Account;
  *
  * @package App\Tests\Controller
  */
-class MakeTransactionControllerTest extends WebTestCase
+final class MakeTransactionControllerTest extends WebTestCase
 {
     public function setUp(): void
     {
-        $kernel = static::createKernel();
+        $kernel = MakeTransactionControllerTest::createKernel();
         $kernel->boot();
 
         $application = new Application($kernel);
