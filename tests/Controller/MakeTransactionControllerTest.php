@@ -29,7 +29,7 @@ final class MakeTransactionControllerTest extends WebTestCase
 
     public function testMakeTransactionFailure()
     {
-        $client = static::createClient();
+        $client = MakeTransactionControllerTest::createClient();
 
         $client->request(
             'POST',
@@ -84,7 +84,7 @@ final class MakeTransactionControllerTest extends WebTestCase
 
     public function testTransactionSuccess()
     {
-        $client = static::createClient();
+        $client = MakeTransactionControllerTest::createClient();
 
         $repository = $client->getContainer()->get('doctrine')->getRepository(Account::class);
         $senderAccount = $repository->findOneBy(['account_name' => 'BigCompanyEUR']);
@@ -111,7 +111,7 @@ final class MakeTransactionControllerTest extends WebTestCase
 
     public function testTransactionCustomErrorResponses()
     {
-        $client = static::createClient();
+        $client = MakeTransactionControllerTest::createClient();
 
         $repository = $client->getContainer()->get('doctrine')->getRepository(Account::class);
         $senderAccount = $repository->findOneBy(['account_name' => 'BigCompanyEUR']);
